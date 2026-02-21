@@ -9,7 +9,7 @@ READ_MODE = 'r'
 odds = "Odds"
 iterations = 10000
 
-draw_cost = [10, 30, 50, 120, 200, 320, 520, 800, 1100, 1400]
+draw_cost = [0]
 costArray = []
 turnArray = []
 
@@ -39,11 +39,11 @@ for _ in range(iterations):
         chosen_item = random_draw(items_array)
         cost += draw_cost[turn]
         turn += 1
-        if chosen_item["Rarity"] == "Legendary" and chosen_item["Type"] == "Weapon":
+        if chosen_item["Rarity"] == "Mythic" and chosen_item["Type"] == "Weapon":
             costArray.append(cost)
             turnArray.append(turn)
             break
-        chosen_odd = chosen_item[odds]
+        chosen_odd = chosen_item[100.0]
         items_array.remove(chosen_item)
         redistributeOdds(items_array, chosen_odd)
 
@@ -62,4 +62,5 @@ from collections import Counter
 turn_counts = Counter(turnArray)
 freq_table = [[turn, count] for turn, count in sorted(turn_counts.items())]
 print("\nTurn Frequency Table:")
+
 print(tabulate(freq_table, headers=["Turns", "Frequency"], tablefmt="grid"))
